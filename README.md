@@ -60,3 +60,7 @@ npx wrangler kv:key put --binding=HEALTH_KV "static:app.html" --path=public/app.
 - **Storage**: Cloudflare KV
 - **AI**: DeepSeek (SSE streaming)
 - **UI**: Vanilla HTML/CSS/JS — no framework dependencies
+
+## License
+
+MIT — Built with ❤️ by [Superinstance](https://github.com/superinstance) & [Lucineer](https://github.com/Lucineer) (DiGennaro et al.)
