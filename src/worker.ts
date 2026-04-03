@@ -229,7 +229,7 @@ export default {
       if (path === `/api/${DOMAIN}` && request.method === 'GET') {
         const userId = await getUserId(request, env);
         const items = await getItems(env, userId);
-        return Response.json({ : items, count: items.length });
+        return Response.json({ items, count: items.length });
       }
 
       // Domain CRUD: POST /api/symptoms
