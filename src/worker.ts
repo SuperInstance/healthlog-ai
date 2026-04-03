@@ -168,11 +168,15 @@ export default {
 
     // Setup wizard
     if (path === '/api/efficiency' && request.method === 'GET') {
-    return new Response(JSON.stringify({
-      totalCached: 0, totalHits: 0, cacheHitRate: 0, tokensSaved: 0,
-      repo: 'healthlog-ai', timestamp: Date.now()
-    }), { headers: { 'Content-Type': 'application/json', ...corsHeaders() } });
-  }
+      try {
+        return new Response(JSON.stringify({
+        totalCached: 0, totalHits: 0, cacheHitRate: 0, tokensSaved: 0,
+        repo: 'healthlog-ai', timestamp: Date.now()
+        }), { headers: { 'Content-Type': 'application/json', ...corsHeaders() } });
+      } catch (e) {
+        return new Response(JSON.stringify({ totalCached: 0, totalHits: 0, cacheHitRate: 0, tokensSaved: 0, repo: 'healthlog-ai', timestamp: Date.now(), error: 'efficiency tracking not initialized' }), { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' } });
+      }
+    }
 
   if (path === '/setup') {
       return new Response(generateSetupHTML(AGENT_NAME, ACCENT), { headers: { 'Content-Type': 'text/html' } });
