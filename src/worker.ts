@@ -71,65 +71,8 @@ async function getUserId(request: Request, env: Env): Promise<string> {
 // ── HTML Generation ──
 
 function generateLandingHTML(): string {
-  return `<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${AGENT_NAME} — Cocapn</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0a0a1a;color:#e0e0e0;font-family:system-ui,-apple-system,sans-serif;min-height:100vh}
-header{padding:1.5rem 2rem;display:flex;align-items:center;gap:1rem;border-bottom:1px solid #1a1a2e}
-.logo{font-size:1.5rem;color:${ACCENT}}
-main{max-width:900px;margin:2rem auto;padding:0 1rem}
-.chat-area{background:#111122;border:1px solid #1a1a2e;border-radius:12px;overflow:hidden}
-.messages{height:60vh;overflow-y:auto;padding:1rem}
-.msg{margin-bottom:1rem;padding:.75rem 1rem;border-radius:8px;max-width:80%}
-.msg.user{background:#1a1a3e;margin-left:auto}
-.msg.assistant{background:#1a2a1a}
-.msg .role{font-size:.7rem;color:#888;text-transform:uppercase;margin-bottom:.25rem}
-.input-area{display:flex;gap:.5rem;padding:1rem;border-top:1px solid #1a1a2e}
-.input-area textarea{flex:1;background:#111122;border:1px solid #333;border-radius:8px;padding:.75rem;color:#e0e0e0;font-size:.95rem;resize:none;min-height:44px;max-height:120px}
-.input-area textarea:focus{outline:none;border-color:${ACCENT}}
-.input-area button{background:${ACCENT};color:#0a0a1a;border:none;border-radius:8px;padding:.75rem 1.5rem;font-weight:700;cursor:pointer}
-.sidebar{position:fixed;right:0;top:0;width:280px;height:100vh;background:#0d0d1d;border-left:1px solid #1a1a2e;padding:1rem;overflow-y:auto}
-.sidebar h3{color:${ACCENT};margin-bottom:.75rem;font-size:.9rem}
-.item-card{background:#111122;border:1px solid #1a1a2e;border-radius:8px;padding:.75rem;margin-bottom:.5rem;cursor:pointer;font-size:.85rem}
-.item-card:hover{border-color:${ACCENT}}
-.empty-state{text-align:center;padding:3rem;color:#666}
-.empty-state .icon{font-size:3rem;margin-bottom:1rem}
-</style></head><body>
-<header><span class="logo">${AGENT_NAME}</span><span style="color:#666;font-size:.85rem">Cocapn</span></header>
-<main>
-  <div class="chat-area">
-    <div class="messages" id="messages">
-      <div class="empty-state"><div class="icon">💊</div><p>Ask me anything about your symptoms!</p></div>
-    </div>
-    <div class="input-area">
-      <textarea id="input" placeholder="Type a message..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send()}"></textarea>
-      <button onclick="send()">Send</button>
-    </div>
-  </div>
-</main>
-<script>
-const msgs=[];
-async function send(){
-  const inp=document.getElementById('input');
-  const text=inp.value.trim();if(!text)return;
-  inp.value='';
-  addMsg('user',text);
-  const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,history:msgs.slice(-10)})});
-  const data=await resp.json();
-  addMsg('assistant',data.reply||data.error||'No response');
-}
-function addMsg(role,content){
-  msgs.push({role,content});
-  const div=document.getElementById('messages');
-  if(div.querySelector('.empty-state'))div.innerHTML='';
-  const m=document.createElement('div');m.className='msg '+role;
-  m.innerHTML='<div class="role">'+role+'</div><div>'+content.replace(/\n/g,'<br>')+'</div>';
-  div.appendChild(m);div.scrollTop=div.scrollHeight;
-}
-</script></body></html>`;
-}
+    return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Healthlog — AI health & fitness companion</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,system-ui,sans-serif;background:#0a0a0f;color:#e2e8f0;min-height:100vh}a{color:#4ade80;text-decoration:none}.hero{max-width:800px;margin:0 auto;padding:80px 24px 40px;text-align:center}.logo{font-size:64px;margin-bottom:16px}h1{font-size:clamp(2rem,5vw,3rem);font-weight:700;background:linear-gradient(135deg,#4ade80,#4ade8088);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}.tagline{font-size:1.15rem;color:#94a3b8;max-width:500px;margin:0 auto 48px;line-height:1.6}.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:700px;margin:0 auto;padding:0 24px 60px}.feat{background:#111118;border:1px solid #1e1e2e;border-radius:12px;padding:20px;transition:border-color .2s}.feat:hover{border-color:#4ade8044}.feat-icon{color:#4ade80;font-size:1.2rem;margin-bottom:8px}.feat-text{font-size:.9rem;color:#cbd5e1}.chat-section{max-width:700px;margin:0 auto;padding:0 24px 80px}.chat-box{background:#111118;border:1px solid #1e1e2e;border-radius:16px;padding:24px}.chat-box h3{font-size:1.1rem;margin-bottom:12px;color:#4ade80}.chat-box p{font-size:.9rem;color:#94a3b8;line-height:1.6;margin-bottom:16px}.chat-input{display:flex;gap:8px}.chat-input input{flex:1;background:#0a0a0f;border:1px solid #1e1e2e;border-radius:8px;padding:10px 14px;color:#e2e8f0;font-size:.9rem;outline:none}.chat-input input:focus{border-color:#4ade80}.chat-input button{background:#4ade80;color:#0a0a0f;border:none;border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer;font-size:.9rem}.chat-input button:hover{opacity:.9}.fleet{text-align:center;padding:40px 24px;color:#475569;font-size:.8rem}.fleet a{color:#64748b;margin:0 8px}</style></head><body><div class="hero"><div class="logo">💪</div><h1>Healthlog</h1><p class="tagline">Track workouts, meals, sleep, and mood with AI-powered wellness insights.</p></div><div class="features"><div class="feat"><div class="feat-icon">✦</div><div class="feat-text">Workout tracking</div></div><div class="feat"><div class="feat-icon">✦</div><div class="feat-text">Meal logging</div></div><div class="feat"><div class="feat-icon">✦</div><div class="feat-text">Sleep analysis</div></div><div class="feat"><div class="feat-icon">✦</div><div class="feat-text">Mood tracking</div></div><div class="feat"><div class="feat-icon">✦</div><div class="feat-text">Health metrics</div></div><div class="feat"><div class="feat-icon">✦</div><div class="feat-text">AI wellness coach</div></div></div><div class="chat-section"><div class="chat-box"><h3>💪 Chat with Healthlog</h3><p>Powered by <a href="https://cocapn.ai">Cocapn</a> — bring your own API key or try with 5 free messages.</p><div class="chat-input"><input type="text" id="msg" placeholder="Ask anything..."><button onclick="send()">Send</button></div></div></div><div class="fleet"><a href="https://the-fleet.casey-digennaro.workers.dev">⚓ The Fleet</a> · <a href="https://cocapn.ai">Cocapn</a> · <a href="https://github.com/Lucineer/healthlog-ai">GitHub</a></div><script>async function send(){const m=document.getElementById("msg"),t=m.value.trim();if(!t)return;const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:t})});const d=await r.json();alert(d.response||d.error||"No response");m.value=""}document.getElementById("msg").addEventListener("keydown",e=>{if(e.key==="Enter")send()});</script></body></html>`;
+  }
 
 // ── Seed Data ──
 
