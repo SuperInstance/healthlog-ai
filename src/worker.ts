@@ -165,6 +165,7 @@ export default {
     if (path === '/health') {
       return Response.json({ status: 'ok', agent: AGENT_NAME, domain: DOMAIN, timestamp: new Date().toISOString() });
     }
+    if (path === '/vessel.json') { try { const vj = await import('./vessel.json', { with: { type: 'json' } }); return new Response(JSON.stringify(vj.default || vj), { headers: { 'Content-Type': 'application/json' } }); } catch { return new Response('{}', { headers: { 'Content-Type': 'application/json' } }); } }
 
     // Setup wizard
     if (path === '/api/efficiency' && request.method === 'GET') {

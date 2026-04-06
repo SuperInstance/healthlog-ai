@@ -1,0 +1,14 @@
+{
+  "name": "healthlog-ai",
+  "displayName": "Healthlog",
+  "version": "1.0.0",
+  "type": "cocapn-vessel",
+  "category": "lifestyle",
+  "description": "AI-powered Healthlog companion",
+  "icon": "ship",
+  "endpoints": ["/", "/health", "/vessel.json"],
+  "deployment": {
+    "platform": "cloudflare-workers",
+    "url": "https://healthlog-ai.casey-digennaro.workers.dev"
+  }
+}
